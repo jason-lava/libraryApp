@@ -1,0 +1,104 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap');
+
+
+:root {
+    --bookshelf-height: 800px;
+    --bookshelf-width: 350px;
+    --shelf-height: calc(0.96 * var(--bookshelf-height));
+    --shelf-width: calc(0.95 * var(--bookshelf-width));
+    --book-height: "";
+    --book-width: "";
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Roboto', sans-serif;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    overflow: hidden;
+    margin: 0;
+}
+
+.body-bg {
+    display: flex;
+    position: absolute;
+    height: 100vh;
+    width: 100vw;
+}
+
+.body-bg-left {
+    background-image: url("https://images.unsplash.com/photo-1546521343-4eb2c01aa44b?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=735&q=80");
+    background-repeat: repeat;
+    background-size: cover;
+    transform: rotate(90deg);
+    position: absolute;
+    top: 10px;
+    left: 0;
+    z-index: -1;
+    height: 1200px;
+    width: 1200px;
+}
+
+.body-bg-right {
+    background-image: url("https://images.unsplash.com/photo-1575883018111-e59071f0ce0e?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=687&q=80");
+    background-repeat: no-repeat;
+    background-size: cover;
+    position: absolute;
+    top: 0;
+    right: 0;
+    height: 1200px;
+    width: 700px;
+}
+
+.containerBookshelf {
+    background-image: url("https://images.unsplash.com/photo-1596016743189-b9ef1d81f3dc?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=686&q=80");
+    border: 3px solid black;
+    border-radius: 10px;
+    height: var(--bookshelf-height);
+    width: var(--bookshelf-width);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    top: 10%;
+    right: 3%;
+}
+
+.containerEdge {
+    background-image: url("https://images.unsplash.com/photo-1596016743189-b9ef1d81f3dc?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=686&q=80");
+    border: 3px solid black;
+    border-radius: 10px;
+    height: var(--shelf-height);
+    width: var(--shelf-width);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.shelf {
+    height: var(--shelf-height);
+    width: var(--shelf-width);
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;
+}
+
+.shelf.top,
+.shelf.middle {
+    border-bottom: 3px solid black;
+}
+
+div[class^="book"] {
+    height: var(--book-height);
+    width: var(--book-width);
+    border: 1px solid black;
+    border-radius: 4px;
+    background-color: ;
+}
