@@ -6,54 +6,144 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css" integrity="sha512-MV7K8+y+gLIBoVD59lQIYicR65iaqukzvf/nwasF0nqhPay5w/9lJmVM2hMDcnK1OnMGCdVK+iQrJ7lzPJQd1w==" crossorigin="anonymous" referrerpolicy="no-referrer" /> -->
     <link rel="stylesheet" href="style.css" />
-    <title>My Little Library</title>
+    <title>My Library App</title>
 </head>
 <body>
     <div class="body-bg">
         <div class="body-bg-left"></div>
         <div class="body-bg-right">
+            <div class="addNewBook">
+                <button onclick="openAddBook()" onclick="closeForm()">Add New Book</button>
+            </div>
             <div class="containerBookshelf">
                 <div class="containerEdge">
                     <div class="shelf top">
-                        <div class="book"></div>
-                        <div class="book"></div>
-                        <div class="book"></div>
-                        <div class="book"></div>
-                        <div class="book"></div>
-                        <div class="book"></div>
-                        <div class="book"></div>
-                        <div class="book"></div>
-                        <div class="book"></div>
-                        <div class="book"></div>
+                        <button class="book" onclick="openForm()">
+                            <div class="bookTitle"></div>
+                        </button>
+                        <button class="book" onclick="openForm()">
+                            <div class="bookTitle"></div>
+                        </button>
+                        <button class="book" onclick="openForm()">
+                            <div class="bookTitle"></div>
+                        </button>
+                        <button class="book" onclick="openForm()">
+                            <div class="bookTitle"></div>
+                        </button>
+                        <button class="book" onclick="openForm()">
+                            <div class="bookTitle"></div>
+                        </button>
+                        <button class="book" onclick="openForm()">
+                            <div class="bookTitle"></div>
+                        </button>
+                        <button class="book" onclick="openForm()">
+                            <div class="bookTitle"></div>
+                        </button>
+                        <button class="book" onclick="openForm()">
+                            <div class="bookTitle"></div>
+                        </button>
+                        <button class="book" onclick="openForm()">
+                            <div class="bookTitle"></div>
+                        </button>
+                        <button class="book" onclick="openForm()">
+                            <div class="bookTitle"></div>
+                        </button>
                     </div>
                     <div class="shelf middle">
-                        <div class="book"></div>
-                        <div class="book"></div>
-                        <div class="book"></div>
-                        <div class="book"></div>
-                        <div class="book"></div>
-                        <div class="book"></div>
-                        <div class="book"></div>
-                        <div class="book"></div>
-                        <div class="book"></div>
-                        <div class="book"></div>
+                        <button class="book" onclick="openForm()">
+                            <div class="bookTitle"></div>
+                        </button>
+                        <button class="book" onclick="openForm()">
+                            <div class="bookTitle"></div>
+                        </button>
+                        <button class="book" onclick="openForm()">
+                            <div class="bookTitle"></div>
+                        </button>
+                        <button class="book" onclick="openForm()">
+                            <div class="bookTitle"></div>
+                        </button>
+                        <button class="book" onclick="openForm()">
+                            <div class="bookTitle"></div>
+                        </button>
+                        <button class="book" onclick="openForm()">
+                            <div class="bookTitle"></div>
+                        </button>
+                        <button class="book" onclick="openForm()">
+                            <div class="bookTitle"></div>
+                        </button>
+                        <button class="book" onclick="openForm()">
+                            <div class="bookTitle"></div>
+                        </button>
+                        <button class="book" onclick="openForm()">
+                            <div class="bookTitle"></div>
+                        </button>
+                        <button class="book" onclick="openForm()">
+                            <div class="bookTitle"></div>
+                        </button>
                     </div>
                     <div class="shelf bottom">
-                        <div class="book"></div>
-                        <div class="book"></div>
-                        <div class="book"></div>
-                        <div class="book"></div>
-                        <div class="book"></div>
-                        <div class="book"></div>
-                        <div class="book"></div>
-                        <div class="book"></div>
-                        <div class="book"></div>
-                        <div class="book"></div>
+                        <button class="book" onclick="openForm()">
+                            <div class="bookTitle"></div>
+                        </button>
+                        <button class="book" onclick="openForm()">
+                            <div class="bookTitle"></div>
+                        </button>
+                        <button class="book" onclick="openForm()">
+                            <div class="bookTitle"></div>
+                        </button>
+                        <button class="book" onclick="openForm()">
+                            <div class="bookTitle"></div>
+                        </button>
+                        <button class="book" onclick="openForm()">
+                            <div class="bookTitle"></div>
+                        </button>
+                        <button class="book" onclick="openForm()">
+                            <div class="bookTitle"></div>
+                        </button>
+                        <button class="book" onclick="openForm()">
+                            <div class="bookTitle"></div>
+                        </button>
+                        <button class="book" onclick="openForm()">
+                            <div class="bookTitle"></div>
+                        </button>
+                        <button class="book" onclick="openForm()">
+                            <div class="bookTitle"></div>
+                        </button>
+                        <button class="book" onclick="openForm()">
+                            <div class="bookTitle"></div>
+                        </button>
                     </div>
                 </div>
             </div>
         </div>
     </div>
+   
+    <div class="form-popup" id="addBookForm">
+        <form class="form-container">
+          <h2>Add Book Details</h2>
+          <input id="title" type="text" placeholder="Title" name="title" maxlength="25" required>
+          <input id="author" type="text" placeholder="Author" name="author" required>
+          <input id="pages" type="number" placeholder="Pages" name="pages" min="1" max="10000" required>
+          
+          <label for="read">Check here if read</label>
+          <input id="read" type="checkbox" name="read">
+
+          <button type="submit" class="btn" id=btnSubmit onclick="getBookFromForm()">Add Book</button>
+          <button type="button" class="btn cancel" onclick="closeMe()">Close</button>
+        </form>
+      </div>
+
+    <div class="form-popup" id="details">
+        <div class="detailsContainer">
+          <h2>Book Details</h2>
+          <p class="detailsTitle">Title:<span></span></p>
+          <p class="detailsAuthor">Author:<span></span></p>
+          <p class="detailsPages">Pages:<span></span></p>
+          <p class="detailsRead">You have<span>read</span>this book</p>
+          <button type="button" class="btn cancel" onclick="closeMe()">Close</button>
+        </h2>
+      </div>
+
    
 
 
