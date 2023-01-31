@@ -1,31 +1,40 @@
-let myLibrary = []
-
-function Book(title, author, pages, read) {
-    this.title = title
-    this.author = author
-    this.pages = pages
-    this.read = read
-
-    this.info = function() {
-        const info = `${title} by ${author} is ${pages} pages long and you have ${read} it.`
-        console.log(info)
+class Book {
+    constructor(title, author, pages, read) {
+        this.title = title
+        this.author = author
+        this.pages = pages
+        this.read = read
     }
 }
 
-function addBookToLibrary() {
-    // do stuff
+class Library {
+    constructor() {
+      this.books = []
+    }
+    addBook(newBook) {
+        this.books.push(newBook)
+      }
 }
 
-const theHobbit = new Book('The Hobbit', 'J.R.R. Tolkien', 295, 'not read')
-const goodToGreat = new Book('Good To Great', 'Jim Collins', 260, 'not read')
+const library = new Library()
 
-Book.prototype.showTitleAndAuthor = function() {
-    console.log('I am ' + this.author + ' and I wrote a book called ' + this.title + '. It is ' + this.pages + ' long and you have ' + this.read + ' my book.')
+const getBookFromForm = () => {
+    const title = document.getElementById('title').value
+    const author = document.getElementById('author').value
+    const pages = document.getElementById('pages').value
+    const read = document.getElementById('read').checked
+    document.getElementById('addBookForm').style.display = 'none'
+    return new Book(title, author, pages, read)
 }
 
+const addBook = (e) => {
+    e.preventDefault()
+    const newBook = getBookFromForm()
+    library.addBook(newBook)
+    console.log(library)
+}
 
-
-
+addBookForm.onsubmit = addBook
 
 // set the book sizes - height/width - and colors dynamically 
 function randomBookSize() {
@@ -43,9 +52,12 @@ function randomBookSize() {
 
     for (let i=1; i < 31; i++) {
         const bookHTML = document.querySelector('.book')
+        
         bookHTML.className += `${i}`
+        
         bookHTML.style.setProperty('--book-height', randomSize(120, 160) + 'px')
-        bookHTML.style.setProperty('--book-width', randomSize(30, 45) + 'px')
+        bookHTML.style.setProperty('--book-width', randomSize(30, 35) + 'px')
+
 
         randomBookColor(randomColor(1, 11))
 
@@ -97,6 +109,22 @@ function randomBookSize() {
             }
         }
     }
+    
 }
 
 randomBookSize()
+
+function openForm() {
+    document.getElementById('details').style.display = 'block'
+    document.getElementById('addBookForm').style.display = 'none'
+}
+  
+function closeMe() {
+    document.getElementById('details').style.display = 'none'
+    document.getElementById('addBookForm').style.display = 'none'
+}
+
+function openAddBook() {
+    document.getElementById('addBookForm').style.display = 'block'
+    document.getElementById('details').style.display = 'none'
+}
