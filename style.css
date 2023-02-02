@@ -123,6 +123,8 @@ body {
     display: none;
 }
 
+
+
 [class^="book"] {
     height: var(--book-height);
     width: var(--book-width);
@@ -138,17 +140,18 @@ button {
     justify-content: flex-end;
 }
 
-.bookTitle {
+[class^="bookTitle"] {
     transform-origin: 11px 15px;
     transform: rotate(-90deg);
     text-transform: capitalize;
     height: 25px;
-    width: 120px;
+    width: var(--book-height);
     display: flex;
     align-items: center;
     justify-content: space-around;
     z-index: 2;
     border: none;
+    text-overflow: ellipsis;
 }
 
 .detailsContainer {
