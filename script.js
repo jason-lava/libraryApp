@@ -34,31 +34,8 @@ const addBook = (e) => {
     e.preventDefault()
     const newBook = getBookFromForm()
     library.addBook(newBook)
-    console.table(library.books)
+    buildBook()
 }
-
-const baseBook = () => {
-    const newBook = new Book('My First Book', 'Yourself', 10, true)
-    library.addBook(newBook)
-    console.table(library.books)
-}
-
-baseBook()
-
-const basBook = () => {
-    const newBook = new Book('My First Book', 'Yourself', 10, true)
-    library.addBook(newBook)
-    console.table(library.books)
-}
-
-basBook()
-const baBook = () => {
-    const newBook = new Book('My First Book', 'Yourself', 10, true)
-    library.addBook(newBook)
-    console.table(library.books)
-}
-
-baBook()
 
 // take min, max of numbers to get whole integer in range
 // will determine book sizes, then push into randomColor function for final book color depending on switch case
@@ -95,10 +72,12 @@ function randomColor(randomSize) {
     }
 }
 
+let counter = 0
+
 // take the Book from Library, "put on shelf" with random size and color for fun
-function randomBookSize() {
+function buildBook() {
     // loop through all books add XXX, sizing, and colors, then add the book details to the form
-    for (let i = 0; i < library.books.length; i++) {
+    for (let i = counter; counter < library.books.length; counter++) {
         const bookHTML = document.querySelector('.book')
         
         bookHTML.className = `book${i}`
@@ -107,44 +86,43 @@ function randomBookSize() {
         bookHTML.style.setProperty('--book-width', randomSize(30, 35) + 'px')
         bookHTML.style.setProperty('background-color', randomColor(randomSize(1, 11)))
 
-        const titleHTML = document.querySelector('.bookTitle')
-        /*
-        if (library.books[`${i}`].title.length < 1) {
-            titleHTML.innerHTML = ''
-        } else {
-            titleHTML.innerHTML = library.books[`${i}`].title
-        }
-        */
-
-        console.log(bookHTML.className)
-        console.table(library.books[0].title.length)
+        const bookTitle = document.querySelector('.bookTitle')
+        bookTitle.className = `bookTitle${i}`
+        bookTitle.id = `bookTitle${i}`
+        bookTitle.innerText = library.books[i].title
         
         if (randomSize(120, 160) >= 150) {
-            titleHTML.style.fontSize = '20px'
+            bookTitle.style.fontSize = '20px'
         } else if (randomSize(120, 160) >= 140)  {
-            titleHTML.style.fontSize = '18px'
+            bookTitle.style.fontSize = '18px'
         } else {
-            titleHTML.style.fontSize = '14px'
+            bookTitle.style.fontSize = '14px'
         }
-
+        
         // this add the book details to each book and displays the title on the spine of the book
         function libraryToBookDetails() {
             const detailsTitle = document.getElementById('detailsTitle')
             const detailsAuthor = document.getElementById('detailsAuthor')
             const detailsPages = document.getElementById('detailsPages')
-            const detailsRead = document.getElementById('detailsRead').checked
+            const detailsRead = document.getElementById('detailsRead')
+
+            console.log(document.getElementById('detailsRead'))
+            console.log(i)
+            console.table(library.books)
             
-            // detailsTitle.innerText = 
+            detailsTitle.innerText = library.books[i].title
+            detailsAuthor.innerText = library.books[i].author
+            detailsPages.innerText = library.books[i].pages
+            if (1<2) {
+                detailsRead.innerText = 'You have read this book'
+            }
 
             // console.log(document.getElementById('details'))
             // title.value = library.books[`${i}`]
         }
         libraryToBookDetails()
     }
-    
 }
-
-randomBookSize()
 
 // form, Book details => open and close them upon button press
 function openForm() {
