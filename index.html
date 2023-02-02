@@ -121,8 +121,9 @@
     <div class="form-popup" id="addBookForm">
         <form class="form-container">
           <h2>Add Book Details</h2>
-          <input id="title" type="text" placeholder="Title" name="title" maxlength="25" required>
-          <input id="author" type="text" placeholder="Author" name="author" required>
+          <input id="title" type="text" placeholder="Title" name="title" maxlength="20" required>
+          <input id="author" type="text" placeholder="Author" name="author" 
+          maxlenght="20" required>
           <input id="pages" type="number" placeholder="Pages" name="pages" min="1" max="10000" required>
           
           <label for="read">Check here if read</label>
@@ -136,10 +137,10 @@
     <div class="form-popup" id="details">
         <div class="detailsContainer">
           <h2>Book Details</h2>
-          <p id="detailsTitle">Title:</p>
-          <p id="detailsAuthor">Author:</p>
-          <p id="detailsPages">Pages:</p>
-          <p id="detailsRead">You have<span></span>this book</p>
+          <p id="detailsTitle"></p>
+          <p id="detailsAuthor"></p>
+          <p id="detailsPages"></p>
+          <p id="detailsRead"></p>
           <button type="button" class="btn cancel" onclick="closeMe()">Close</button>
         </h2>
       </div>
