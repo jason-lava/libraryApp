@@ -115,6 +115,14 @@ body {
     border-bottom: 3px solid black;
 }
 
+/* 
+[class^="book"]
+*/
+
+.inactive {
+    display: none;
+}
+
 [class^="book"] {
     height: var(--book-height);
     width: var(--book-width);
@@ -124,7 +132,6 @@ body {
     cursor: pointer;
 }
 
-
 button {
     display: flex;
     flex-direction: column;
@@ -132,7 +139,7 @@ button {
 }
 
 .bookTitle {
-    transform-origin: 15px 15px;
+    transform-origin: 11px 15px;
     transform: rotate(-90deg);
     text-transform: capitalize;
     height: 25px;
