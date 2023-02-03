@@ -83,7 +83,7 @@ function buildBook() {
         
         bookHTML.className = `book${i}`
 
-        bookHTML.style.setProperty('--book-height', randomSize(120, 160) + 'px')
+        bookHTML.style.setProperty('--book-height', randomSize(140, 170) + 'px')
         bookHTML.style.setProperty('--book-width', randomSize(30, 35) + 'px')
         bookHTML.style.setProperty('background-color', randomColor(randomSize(1, 11)))
 
@@ -93,9 +93,11 @@ function buildBook() {
         bookTitle.innerText = library.books[i].title
         
         if (library.books[i].title.length < 10)  {
-            bookTitle.style.fontSize = '20px'
-        } else if (library.books[i].title.length < 15)  {
             bookTitle.style.fontSize = '18px'
+        } else if (library.books[i].title.length < 15)  {
+            bookTitle.style.fontSize = '16px'
+        }  else if (library.books[i].title.length < 20)  {
+            bookTitle.style.fontSize = '14px'
         } else {
             bookTitle.style.fontSize = '12px'
         }
@@ -122,7 +124,6 @@ function buildBook() {
     }
 }
 
-
 // form, Book details => open and close them upon button press
 function openForm() {
     document.getElementById('details').style.display = 'block'
@@ -135,8 +136,12 @@ function closeMe() {
 }
 
 function openAddBook() {
-    document.getElementById('addBookForm').style.display = 'block'
-    document.getElementById('details').style.display = 'none'
+    if (counter === 30) {
+        return alert('\nGreat job - your library is full!\n\nContinue reading more books while we build a bigger library for you.')
+    } else {
+        document.getElementById('addBookForm').style.display = 'block'
+        document.getElementById('details').style.display = 'none'
+    }
 }
 
 function clearForm() {
@@ -144,4 +149,64 @@ function clearForm() {
     document.getElementById('author').value = ''
     document.getElementById('pages').value = ''
     document.getElementById('read').checked = false
+}
+
+let defaultBooks = [
+    {title: 'Atlas Shrugged', author: 'Ayn Rand', pages: 1069, read: false}, 
+    {title: 'Why Nations Fail', author: 'Daron Acemoglu', pages: 482, read: false}, 
+    {title: 'The Epic of Gilgamesh', author: 'Unknown', pages: 27, read: false}, 
+    {title: 'Crime and Punishment', author: 'Fyodor Dostoevsky', pages: 430, read: false}, 
+    {title: 'Antifragile', author: 'Nassim Nicholas Taleb', pages: 423, read: false}, 
+    {title: 'Thinking: Fast and Slow', author: 'Daniel Kahneman', pages: 418, read: false}, 
+    {title: 'Never Eat Alone', author: 'Keith Ferrazzi', pages: 367, read: false}, 
+    {title: 'Mastery', author: 'Robert Greene', pages: 311, read: false}, 
+    {title: 'The Black Swan', author: 'Nassim Nicholas Taleb', pages: 310, read: false}, 
+    {title: 'Fanatical Prospecting', author: 'Jeb Blount', pages: 304, read: false}, 
+    {title: 'The Product Book', author: 'Product School', pages: 300, read: false}, 
+    {title: 'The Lean Startup', author: 'Eric Ries', pages: 290, read: false}, 
+    {title: 'Ham On Rye', author: 'Charles Bukowski', pages: 283, read: false}, 
+    {title: 'The Innovators Dilemma', author: 'Clayton Christensen', pages: 270, read: false}, 
+    {title: 'The Innovators DNA', author: 'Jeff Dyer', pages: 268, read: false}, 
+    {title: 'First, Break All The Rules', author: 'Jim Harter', pages: 267, read: false}, 
+    {title: 'Good To Great', author: 'Jim Collins', pages: 260, read: false}, 
+    {title: 'The Millionaire Next Door', author: 'Thomas J. Stanley', pages: 250, read: false}, 
+    {title: 'The Mystery Of Capital', author: 'Hernando De Soto', pages: 228, read: false}, 
+    {title: 'Leadership BS', author: 'Jeffrey Pfeffer', pages: 220, read: false}, 
+    {title: 'The Elephant & The Dragon', author: 'Robyn Meredith', pages: 216, read: false}, 
+    {title: 'The Ideal Team Player', author: 'Patrick Lencioni', pages: 215, read: false}, 
+    {title: 'Rich Dad Poor Dad', author: 'Robert Kiyosaki', pages: 200, read: false}, 
+    {title: 'Odisea Del Norte', author: 'Mario Bencastro', pages: 195, read: false}, 
+    {title: 'El Alquimista', author: 'Paulo Coelho', pages: 188, read: false}, 
+    {title: 'The Art Of War', author: 'Sun Tzu', pages: 172, read: false}, 
+    {title: 'The Great Degeneration', author: 'Nial Ferguson', pages: 153, read: false}, 
+    {title: 'The Prince', author: 'Nicoli Machiavelli', pages: 124, read: false}, 
+    {title: 'Los Cuatro Acuerdos', author: 'Dr. Miguel Ruiz', pages: 118, read: false}, 
+    {title: 'Meditations', author: 'Marcus Aurelius', pages: 99, read: false}   
+]
+
+const fillUpLibrary = () => {
+    if (counter === 30) {
+        return alert('\nGreat job - your library is full!\n\nContinue reading more books while we build a bigger library for you.')
+    } else {
+    for (let i = counter; i < 30; i++) {
+        const newBook = new Book(defaultBooks[i].title, defaultBooks[i].author, defaultBooks[i].pages, defaultBooks[i].read)
+        library.addBook(newBook)
+        buildBook()
+    }    
+    }
+    closeMe()
+    clearForm()
+}
+
+const emptyLibrary = () => {
+    for (let i = 0; i < counter; i++) {
+        const emptyBooks = document.querySelector(`.book${i}`)
+        const emptyBooksTitle = document.querySelector(`.bookTitle${i}`)
+        emptyBooks.className = `book inactive`
+        emptyBooksTitle.className = `bookTitle`
+    }    
+    counter = 0
+    library.books = []
+    closeMe()
+    clearForm()
 }
