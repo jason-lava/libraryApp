@@ -33,16 +33,16 @@ body {
 }
 
 .body-bg-left {
-    background-image: url("https://images.unsplash.com/photo-1546521343-4eb2c01aa44b?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=735&q=80");
-    background-repeat: repeat;
-    background-size: cover;
+    background: url("https://images.unsplash.com/photo-1544640808-32ca72ac7f37?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=735&q=80");
+    background-repeat:round;
+    background-size: 50%;
     transform: rotate(90deg);
     position: absolute;
-    top: 10px;
+    top: 0;
     left: 0;
     z-index: -1;
-    height: 1200px;
-    width: 1200px;
+    height: 2000px;
+    width: 2000px;
 }
 
 .body-bg-right {
@@ -76,6 +76,32 @@ body {
     opacity: 1;
 }
 
+#fillUpLibrary {
+    position: absolute;
+    right: 15px;
+    top: 820px;
+    display: flex;
+    justify-content: center;
+}
+
+#fillUpLibrary button {
+    background-color: #fff;
+    color: #000;
+    height: 50px;
+    width: 150px;
+    padding-left: 20px;
+    margin-left: 5px;
+    font-size: 18px;
+    cursor: pointer;
+    opacity: 0.8;
+    display: flex;
+    justify-content: center;
+}
+
+#fillUpLibrary button:hover {
+    opacity: 1;
+}
+
 .containerBookshelf {
     background-image: url("https://images.unsplash.com/photo-1596016743189-b9ef1d81f3dc?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=686&q=80");
     border: 3px solid black;
@@ -86,8 +112,8 @@ body {
     justify-content: center;
     align-items: center;
     position: absolute;
-    top: 10%;
-    right: 3%;
+    top: 120px;
+    right: 30px;
 }
 
 .containerEdge {
@@ -179,7 +205,7 @@ button {
     display: none;
     position: fixed;
     top: 200px;
-    right: 375px;
+    right: 390px;
     z-index: 1;
 }
   
