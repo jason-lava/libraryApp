@@ -99,51 +99,28 @@ function buildBook() {
         } else {
             bookTitle.style.fontSize = '12px'
         }
+
+        // define constants for eventListener
+        const detailsTitle = document.getElementById('detailsTitle')
+        const detailsAuthor = document.getElementById('detailsAuthor')
+        const detailsPages = document.getElementById('detailsPages')
+        const detailsRead = document.getElementById('detailsRead')
         
-        // this add the book details to each book and displays the title on the spine of the book
-        function libraryToBookDetails() {            
-            const addDiv = document.createElement('div')
-            const titleNode = document.createTextNode(library.books[i].title)
-            const authorNode = document.createTextNode(library.books[i].author)
-            const pagesNode = document.createTextNode(library.books[i].pages)
-            const readNode = document.createTextNode(library.books[i].read)
+        // add eventListener to each book to push the books info into the Details pop-up
+        const allBooksHTML = document.getElementById(`bookTitle${i}`)
 
-            addDiv.appendChild(titleNode)
-            addDiv.appendChild(authorNode)
-            addDiv.appendChild(pagesNode)
-            addDiv.appendChild(readNode)
-            
-            titleNode.id = `${i}`
-            authorNode.id = `authorNode${i}`
-            pagesNode.id = `pagesNode${i}`
-            readNode.id = `readNode${i}`
+        allBooksHTML.addEventListener('click', () => {
+                console.log(allBooksHTML)
+                console.log(allBooksHTML.innerText)
 
-            console.log(`titleNode${i}`, titleNode.id, titleNode.textContent)
-            console.log(authorNode, authorNode.id)
-            console.log(pagesNode, pagesNode.id)
-            console.log(readNode, readNode.id)
-            console.table(library.books)
-            console.log('----------')
-
-
-            const detailsTitle = document.getElementById('detailsTitle')
-            const detailsAuthor = document.getElementById('detailsAuthor')
-            const detailsPages = document.getElementById('detailsPages')
-            const detailsRead = document.getElementById('detailsRead')
-
-            detailsTitle.innerText = document.getElementById(`titleNode${i}`)
-            detailsAuthor.innerText = `Author: ${authorNode}`
-            detailsPages.innerText = `Pages: ${pagesNode}`
-            if (readNode[i] === true) {
-                detailsRead.innerText = 'Nice, you\'ve read this book!'
-            } else {
-                detailsRead.innerText = 'You should read this book!'
-            }
-            
-        }
-        libraryToBookDetails()
+                detailsTitle.innerText = 'Title: ' + library.books[i].title
+                detailsAuthor.innerText = 'Author: ' + library.books[i].author
+                detailsPages.innerText = 'Pages: '  + library.books[i].pages
+                detailsRead.innerText = 'Read: ' + library.books[i].read
+        });
     }
 }
+
 
 // form, Book details => open and close them upon button press
 function openForm() {
