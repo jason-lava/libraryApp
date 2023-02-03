@@ -110,13 +110,14 @@ function buildBook() {
         const allBooksHTML = document.getElementById(`bookTitle${i}`)
 
         allBooksHTML.addEventListener('click', () => {
-                console.log(allBooksHTML)
-                console.log(allBooksHTML.innerText)
-
                 detailsTitle.innerText = 'Title: ' + library.books[i].title
                 detailsAuthor.innerText = 'Author: ' + library.books[i].author
                 detailsPages.innerText = 'Pages: '  + library.books[i].pages
-                detailsRead.innerText = 'Read: ' + library.books[i].read
+                if (library.books[i].read === true) {
+                    detailsRead.innerText = 'Nice, you\'ve read this book!'
+                } else {
+                    detailsRead.innerText = 'Add this book to your reading list!'
+                }
         });
     }
 }
