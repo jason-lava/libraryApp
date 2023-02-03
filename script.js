@@ -35,6 +35,7 @@ const addBook = (e) => {
     const newBook = getBookFromForm()
     library.addBook(newBook)
     buildBook()
+    clearForm()
 }
 
 // take min, max of numbers to get whole integer in range
@@ -91,34 +92,54 @@ function buildBook() {
         bookTitle.id = `bookTitle${i}`
         bookTitle.innerText = library.books[i].title
         
-        if (randomSize(120, 160) >= 150) {
+        if (library.books[i].title.length < 10)  {
             bookTitle.style.fontSize = '20px'
-        } else if (randomSize(120, 160) >= 140)  {
+        } else if (library.books[i].title.length < 15)  {
             bookTitle.style.fontSize = '18px'
         } else {
-            bookTitle.style.fontSize = '14px'
+            bookTitle.style.fontSize = '12px'
         }
         
         // this add the book details to each book and displays the title on the spine of the book
-        function libraryToBookDetails() {
+        function libraryToBookDetails() {            
+            const addDiv = document.createElement('div')
+            const titleNode = document.createTextNode(library.books[i].title)
+            const authorNode = document.createTextNode(library.books[i].author)
+            const pagesNode = document.createTextNode(library.books[i].pages)
+            const readNode = document.createTextNode(library.books[i].read)
+
+            addDiv.appendChild(titleNode)
+            addDiv.appendChild(authorNode)
+            addDiv.appendChild(pagesNode)
+            addDiv.appendChild(readNode)
+            
+            titleNode.id = `${i}`
+            authorNode.id = `authorNode${i}`
+            pagesNode.id = `pagesNode${i}`
+            readNode.id = `readNode${i}`
+
+            console.log(`titleNode${i}`, titleNode.id, titleNode.textContent)
+            console.log(authorNode, authorNode.id)
+            console.log(pagesNode, pagesNode.id)
+            console.log(readNode, readNode.id)
+            console.table(library.books)
+            console.log('----------')
+
+
             const detailsTitle = document.getElementById('detailsTitle')
             const detailsAuthor = document.getElementById('detailsAuthor')
             const detailsPages = document.getElementById('detailsPages')
             const detailsRead = document.getElementById('detailsRead')
 
-            console.log(document.getElementById('detailsRead'))
-            console.log(i)
-            console.table(library.books)
-            
-            detailsTitle.innerText = library.books[i].title
-            detailsAuthor.innerText = library.books[i].author
-            detailsPages.innerText = library.books[i].pages
-            if (1<2) {
-                detailsRead.innerText = 'You have read this book'
+            detailsTitle.innerText = document.getElementById(`titleNode${i}`)
+            detailsAuthor.innerText = `Author: ${authorNode}`
+            detailsPages.innerText = `Pages: ${pagesNode}`
+            if (readNode[i] === true) {
+                detailsRead.innerText = 'Nice, you\'ve read this book!'
+            } else {
+                detailsRead.innerText = 'You should read this book!'
             }
-
-            // console.log(document.getElementById('details'))
-            // title.value = library.books[`${i}`]
+            
         }
         libraryToBookDetails()
     }
@@ -138,4 +159,11 @@ function closeMe() {
 function openAddBook() {
     document.getElementById('addBookForm').style.display = 'block'
     document.getElementById('details').style.display = 'none'
+}
+
+function clearForm() {
+    document.getElementById('title').value = ''
+    document.getElementById('author').value = ''
+    document.getElementById('pages').value = ''
+    document.getElementById('read').checked = false
 }
