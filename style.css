@@ -233,9 +233,11 @@ button {
 #detailsTitle, #detailsAuthor,
 #detailsPages {
     text-transform: capitalize;
-    font-size: 17px;
 }
 
-#detailsRead {
+#detailsTitle, #detailsAuthor,
+#detailsPages, #detailsRead {
     font-size: 17px;
+    width: 100%;
+    height: 20px;
 }
