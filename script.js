@@ -79,11 +79,13 @@ let counter = 0
 function buildBook() {
     // loop through all books add XXX, sizing, and colors, then add the book details to the form
     for (let i = counter; counter < library.books.length; counter++) {
+        console.log(document.querySelector('.book').className, document.querySelector('.bookTitle').className, document.querySelector('.bookTitle').id)
+
         const bookHTML = document.querySelector('.book')
         
         bookHTML.className = `book${i}`
 
-        bookHTML.style.setProperty('--book-height', randomSize(140, 170) + 'px')
+        bookHTML.style.setProperty('--book-height', randomSize(150, 175) + 'px')
         bookHTML.style.setProperty('--book-width', randomSize(30, 35) + 'px')
         bookHTML.style.setProperty('background-color', randomColor(randomSize(1, 11)))
 
@@ -112,15 +114,16 @@ function buildBook() {
         const allBooksHTML = document.getElementById(`bookTitle${i}`)
 
         allBooksHTML.addEventListener('click', () => {
-                detailsTitle.innerText = 'Title: ' + library.books[i].title
-                detailsAuthor.innerText = 'Author: ' + library.books[i].author
-                detailsPages.innerText = 'Pages: '  + library.books[i].pages
-                if (library.books[i].read === true) {
-                    detailsRead.innerText = 'Nice, you\'ve read this book!'
-                } else {
-                    detailsRead.innerText = 'Add this book to your reading list!'
-                }
-        });
+            detailsTitle.innerText = 'Title: ' + library.books[i].title
+            detailsAuthor.innerText = 'Author: ' + library.books[i].author
+            detailsPages.innerText = 'Pages: '  + library.books[i].pages
+            if (library.books[i].read === true) {
+                detailsRead.innerText = 'Nice, you\'ve read this book!'
+            } else {
+                detailsRead.innerText = 'Add this book to your reading list!'
+            }
+        })
+        console.log(document.querySelector(`.book${i}`).className, document.querySelector(`.bookTitle${i}`).className, document.querySelector(`.bookTitle${i}`).id)
     }
 }
 
@@ -130,6 +133,36 @@ function openForm() {
     document.getElementById('addBookForm').style.display = 'none'
 }
   
+function removeBook() {
+    let bookIndex = 0
+
+    for (let i = 0; i < counter; i++) {
+        console.log(`library.books${i}`.className)
+
+        const index = library.books.findIndex(books => {
+            return library.books[i].title === 'Good To Great'
+        })
+
+        if (index === 0) {
+            bookIndex = i
+        }
+    }
+    library.books.splice(bookIndex, 1)
+
+    //it appears this portion delete all the below from buildBook()
+    // console.log(document.querySelector('.book').className, document.querySelector('.bookTitle').className, document.querySelector('.bookTitle').id)
+    const deleteBooks = document.querySelector(`.book${bookIndex}`)
+    const deleteBooksTitle = document.querySelector(`.bookTitle${bookIndex}`)
+    deleteBooks.className = `book inactive`
+    deleteBooksTitle.className = `bookTitle`
+
+    counter = library.books.length
+    clearForm()
+    buildBook()
+    console.table(counter)
+    // closeMe()
+}
+
 function closeMe() {
     document.getElementById('details').style.display = 'none'
     document.getElementById('addBookForm').style.display = 'none'
@@ -192,10 +225,11 @@ const fillUpLibrary = () => {
         const newBook = new Book(defaultBooks[i].title, defaultBooks[i].author, defaultBooks[i].pages, defaultBooks[i].read)
         library.addBook(newBook)
         buildBook()
-    }    
+        }    
     }
     closeMe()
     clearForm()
+    counter === 30
 }
 
 const emptyLibrary = () => {
@@ -205,8 +239,9 @@ const emptyLibrary = () => {
         emptyBooks.className = `book inactive`
         emptyBooksTitle.className = `bookTitle`
     }    
-    counter = 0
     library.books = []
     closeMe()
     clearForm()
+    counter = 0
 }
+
