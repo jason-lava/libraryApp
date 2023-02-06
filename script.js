@@ -74,13 +74,12 @@ function randomColor(randomSize) {
 }
 
 let counter = 0
+let deleteThisBook = ''
 
 // take the Book from Library, "put on shelf" with random size and color for fun
 function buildBook() {
     // loop through all books add XXX, sizing, and colors, then add the book details to the form
     for (let i = counter; counter < library.books.length; counter++) {
-        console.log(document.querySelector('.book').className, document.querySelector('.bookTitle').className, document.querySelector('.bookTitle').id)
-
         const bookHTML = document.querySelector('.book')
         
         bookHTML.className = `book${i}`
@@ -90,10 +89,26 @@ function buildBook() {
         bookHTML.style.setProperty('background-color', randomColor(randomSize(1, 11)))
 
         const bookTitle = document.querySelector('.bookTitle')
+        bookTitle.innerText = library.books[i].title
         bookTitle.className = `bookTitle${i}`
         bookTitle.id = `bookTitle${i}`
-        bookTitle.innerText = library.books[i].title
-        
+
+        const authorDiv = document.createElement('div')
+        const pagesDiv = document.createElement('div')
+        const readDiv = document.createElement('div')
+
+        authorDiv.innerText = library.books[i].author
+        pagesDiv.innerText = library.books[i].pages
+        readDiv.innerText = library.books[i].read
+
+        authorDiv.id = `bookAuthor${i}`
+        pagesDiv.id = `bookPages${i}`
+        readDiv.id = `bookRead${i}`
+
+        bookTitle.appendChild(authorDiv)
+        bookTitle.appendChild(pagesDiv)
+        bookTitle.appendChild(readDiv)
+
         if (library.books[i].title.length < 10)  {
             bookTitle.style.fontSize = '18px'
         } else if (library.books[i].title.length < 15)  {
@@ -114,58 +129,24 @@ function buildBook() {
         const allBooksHTML = document.getElementById(`bookTitle${i}`)
 
         allBooksHTML.addEventListener('click', () => {
-            detailsTitle.innerText = 'Title: ' + library.books[i].title
-            detailsAuthor.innerText = 'Author: ' + library.books[i].author
-            detailsPages.innerText = 'Pages: '  + library.books[i].pages
-            if (library.books[i].read === true) {
+
+            deleteThisBook = document.getElementById(`bookTitle${i}`).innerText
+
+            console.log(deleteThisBook)
+            console.log(document.getElementById(`bookTitle${i}`).id)
+            console.log(library.books.length)
+            console.log('-----')
+
+            detailsTitle.innerText = 'Title: ' + document.getElementById(`bookTitle${i}`).innerText
+            detailsAuthor.innerText = 'Author: ' + document.getElementById(`bookAuthor${i}`).innerText
+            detailsPages.innerText = 'Pages: '  + document.getElementById(`bookPages${i}`).innerText
+            if (document.getElementById(`bookRead${i}`).innerText === true) {
                 detailsRead.innerText = 'Nice, you\'ve read this book!'
             } else {
                 detailsRead.innerText = 'Add this book to your reading list!'
             }
         })
-        console.log(document.querySelector(`.book${i}`).className, document.querySelector(`.bookTitle${i}`).className, document.querySelector(`.bookTitle${i}`).id)
     }
-}
-
-// form, Book details => open and close them upon button press
-function openForm() {
-    document.getElementById('details').style.display = 'block'
-    document.getElementById('addBookForm').style.display = 'none'
-}
-  
-function removeBook() {
-    let bookIndex = 0
-
-    for (let i = 0; i < counter; i++) {
-        console.log(`library.books${i}`.className)
-
-        const index = library.books.findIndex(books => {
-            return library.books[i].title === 'Good To Great'
-        })
-
-        if (index === 0) {
-            bookIndex = i
-        }
-    }
-    library.books.splice(bookIndex, 1)
-
-    //it appears this portion delete all the below from buildBook()
-    // console.log(document.querySelector('.book').className, document.querySelector('.bookTitle').className, document.querySelector('.bookTitle').id)
-    const deleteBooks = document.querySelector(`.book${bookIndex}`)
-    const deleteBooksTitle = document.querySelector(`.bookTitle${bookIndex}`)
-    deleteBooks.className = `book inactive`
-    deleteBooksTitle.className = `bookTitle`
-
-    counter = library.books.length
-    clearForm()
-    buildBook()
-    console.table(counter)
-    // closeMe()
-}
-
-function closeMe() {
-    document.getElementById('details').style.display = 'none'
-    document.getElementById('addBookForm').style.display = 'none'
 }
 
 function openAddBook() {
@@ -177,12 +158,81 @@ function openAddBook() {
     }
 }
 
+// REMOVE BOOK  
+function removeBook() {
+    let bookIndex = 0
+
+    for (let i = 0; i < counter; i++) {
+        const index = library.books.findIndex(books => {
+            return deleteThisBook == library.books[i].title
+        })
+
+        if (index === 0) {
+            bookIndex = i
+        }
+    }
+    library.books.splice(bookIndex, 1)
+
+    const deleteBooks = document.querySelector(`.book${bookIndex}`)
+    const deleteBooksTitle = document.querySelector(`.bookTitle${bookIndex}`)
+    deleteBooks.className = `book inactive`
+    deleteBooksTitle.className = `bookTitle`
+
+    counter = library.books.length
+    clearForm()
+    buildBook()
+    // closeMe()
+}
+
+const fillUpLibrary = () => {
+    if (counter === 30) {
+        return alert('\nGreat job - your library is full!\n\nContinue reading more books while we build a bigger library for you.')
+    } else {
+    for (let i = counter; i < 30; i++) {
+        const newBook = new Book(defaultBooks[i].title, defaultBooks[i].author, defaultBooks[i].pages, defaultBooks[i].read)
+        library.addBook(newBook)
+        buildBook()
+        }    
+    }
+    closeMe()
+    clearForm()
+    counter === 30
+}
+
+const emptyLibrary = () => {
+    for (let i = 0; i < counter; i++) {
+        const emptyBooks = document.querySelector(`.book${i}`)
+        const emptyBooksTitle = document.querySelector(`.bookTitle${i}`)
+        emptyBooks.className = `book inactive`
+        emptyBooksTitle.className = `bookTitle`
+    }    
+    library.books = []
+    closeMe()
+    clearForm()
+    counter = 0
+}
+
+// form, Book details => open and close them upon button press
+function openForm() {
+    document.getElementById('details').style.display = 'block'
+    document.getElementById('addBookForm').style.display = 'none'
+}
+
+function closeMe() {
+    document.getElementById('details').style.display = 'none'
+    document.getElementById('addBookForm').style.display = 'none'
+}
+
+
 function clearForm() {
     document.getElementById('title').value = ''
     document.getElementById('author').value = ''
     document.getElementById('pages').value = ''
     document.getElementById('read').checked = false
 }
+
+
+
 
 let defaultBooks = [
     {title: 'Atlas Shrugged', author: 'Ayn Rand', pages: 1069, read: false}, 
@@ -216,32 +266,3 @@ let defaultBooks = [
     {title: 'Los Cuatro Acuerdos', author: 'Dr. Miguel Ruiz', pages: 118, read: false}, 
     {title: 'Meditations', author: 'Marcus Aurelius', pages: 99, read: false}   
 ]
-
-const fillUpLibrary = () => {
-    if (counter === 30) {
-        return alert('\nGreat job - your library is full!\n\nContinue reading more books while we build a bigger library for you.')
-    } else {
-    for (let i = counter; i < 30; i++) {
-        const newBook = new Book(defaultBooks[i].title, defaultBooks[i].author, defaultBooks[i].pages, defaultBooks[i].read)
-        library.addBook(newBook)
-        buildBook()
-        }    
-    }
-    closeMe()
-    clearForm()
-    counter === 30
-}
-
-const emptyLibrary = () => {
-    for (let i = 0; i < counter; i++) {
-        const emptyBooks = document.querySelector(`.book${i}`)
-        const emptyBooksTitle = document.querySelector(`.bookTitle${i}`)
-        emptyBooks.className = `book inactive`
-        emptyBooksTitle.className = `bookTitle`
-    }    
-    library.books = []
-    closeMe()
-    clearForm()
-    counter = 0
-}
-
