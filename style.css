@@ -178,6 +178,12 @@ button {
     text-overflow: ellipsis;
 }
 
+[id^="bookAuthor"],
+[id^="bookPages"],
+[id^="bookRead"] {
+    display: none;
+} 
+
 .detailsContainer {
     height: 360px;
     width: 300px;
