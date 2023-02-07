@@ -130,12 +130,10 @@ function buildBook() {
 
         allBooksHTML.addEventListener('click', () => {
 
-            deleteThisBook = document.getElementById(`bookTitle${i}`).innerText
+            console.log(document.getElementById(`bookTitle${i}`).innerText)
 
-            console.log(deleteThisBook)
-            console.log(document.getElementById(`bookTitle${i}`).id)
-            console.log(library.books.length)
-            console.log('-----')
+
+            deleteThisBook = document.getElementById(`bookTitle${i}`).innerText
 
             detailsTitle.innerText = 'Title: ' + document.getElementById(`bookTitle${i}`).innerText
             detailsAuthor.innerText = 'Author: ' + document.getElementById(`bookAuthor${i}`).innerText
@@ -162,23 +160,28 @@ function openAddBook() {
 function removeBook() {
     let bookIndex = 0
 
-    for (let i = 0; i < counter; i++) {
+    for (let i = 0; i < 30; i++) {
         const index = library.books.findIndex(books => {
-            return deleteThisBook == library.books[i].title
+            return deleteThisBook === document.getElementById(`bookTitle${i}`).innerText
         })
-
         if (index === 0) {
             bookIndex = i
-        }
+        } 
     }
+    
+    console.log(document.getElementById(`bookTitle${bookIndex}`).innerText)
+    console.log(typeof(deleteThisBook))
+
+    document.querySelector(`.book${bookIndex}`).className = `book inactive`
+    document.querySelector(`.bookTitle${bookIndex}`).className = `bookTitle`
+
     library.books.splice(bookIndex, 1)
 
-    const deleteBooks = document.querySelector(`.book${bookIndex}`)
-    const deleteBooksTitle = document.querySelector(`.bookTitle${bookIndex}`)
-    deleteBooks.className = `book inactive`
-    deleteBooksTitle.className = `bookTitle`
+    console.table(library.books)
 
     counter = library.books.length
+    console.log(counter)
+    console.log('-----')
     clearForm()
     buildBook()
     // closeMe()
