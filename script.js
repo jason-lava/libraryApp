@@ -130,12 +130,11 @@ function buildBook() {
 
         allBooksHTML.addEventListener('click', () => {
 
-            console.log(document.getElementById(`bookTitle${i}`).innerText)
-
+            console.log(document.getElementById(`bookTitle${i}`).innerText, 'is id #', document.getElementById(`bookTitle${i}`).id, document.getElementById(`bookTitle${i}`).className, document.getElementById(`bookTitle${i}`))
 
             deleteThisBook = document.getElementById(`bookTitle${i}`).innerText
 
-            detailsTitle.innerText = 'Title: ' + document.getElementById(`bookTitle${i}`).innerText
+            detailsTitle.innerText = 'Title: ' + library.books[i].title
             detailsAuthor.innerText = 'Author: ' + document.getElementById(`bookAuthor${i}`).innerText
             detailsPages.innerText = 'Pages: '  + document.getElementById(`bookPages${i}`).innerText
             if (document.getElementById(`bookRead${i}`).innerText === true) {
@@ -169,22 +168,18 @@ function removeBook() {
         } 
     }
     
-    console.log(document.getElementById(`bookTitle${bookIndex}`).innerText)
-    console.log(typeof(deleteThisBook))
-
     document.querySelector(`.book${bookIndex}`).className = `book inactive`
     document.querySelector(`.bookTitle${bookIndex}`).className = `bookTitle`
 
     library.books.splice(bookIndex, 1)
 
-    console.table(library.books)
-
     counter = library.books.length
-    console.log(counter)
-    console.log('-----')
-    clearForm()
-    buildBook()
-    // closeMe()
+    
+    // console.table(library.books)
+    console.log(counter, bookIndex)
+
+    // buildBook()
+    closeMe()
 }
 
 const fillUpLibrary = () => {
