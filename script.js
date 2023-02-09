@@ -48,36 +48,25 @@ function randomSize(min, max) {
 
 function randomColor(randomSize) {
     switch(randomSize) {
-        case 1:
-            return 'rgb(220, 20, 60)' // crimson red
-        case 2:
-            return 'rgb(255, 140, 0)' // dark orange
-        case 3:
-            return 'rgb(255, 215, 0)' // gold
-        case 4:
-            return 'rgb(65, 105, 225)' // royal blue
-        case 5:
-            return 'rgb(245, 255, 250)' // mint cream
-        case 6:
-            return 'rgb(34, 139, 34)' // forest green
-        case 7:
-            return 'rgb(0, 128, 128)' // teal
-        case 8:
-            return 'rgb(221, 160, 221)' // plum
-        case 9:
-            return 'rgb(205, 133, 63)' // peru
-        case 10:
-            return 'rgb(176, 196, 222)' // light steel blue
-        default: 
-            return 'rgb(0, 0, 0)' // black
+        case 1: return 'rgb(220, 20, 60)' // crimson red
+        case 2: return 'rgb(255, 140, 0)' // dark orange
+        case 3: return 'rgb(255, 215, 0)' // gold
+        case 4: return 'rgb(65, 105, 225)' // royal blue
+        case 5: return 'rgb(245, 255, 250)' // mint cream
+        case 6: return 'rgb(34, 139, 34)' // forest green
+        case 7: return 'rgb(0, 128, 128)' // teal
+        case 8: return 'rgb(221, 160, 221)' // plum
+        case 9: return 'rgb(205, 133, 63)' // peru
+        case 10: return 'rgb(176, 196, 222)' // light steel blue
+        default: return 'rgb(0, 0, 0)' // black
     }
 }
 
 let counter = 0
-let deleteThisBook = ''
+let index = 0
+let parseClassNameToNum = 0
 
 // take the Book from Library, "put on shelf" with random size and color for fun
-
 function buildBook() {
     for (let i = counter; counter < library.books.length; counter++) {
         const bookAll = document.querySelector('.book')
@@ -87,26 +76,24 @@ function buildBook() {
         bookAll.style.setProperty('--book-width', randomSize(30, 35) + 'px')
         bookAll.style.setProperty('background-color', randomColor(randomSize(1, 11)))
 
+        // take inner divs for Title, Author, Pages, and Read status - set innerText and new class name for loops/future iteration
         const bookTitle = document.querySelector('.bookTitle')
         bookTitle.innerText = library.books[i].title
         bookTitle.className = `bookTitle${i}`
-        bookTitle.id = `bookTitle${i}`
 
         const bookAuthor = document.querySelector('.bookAuthor')
         bookAuthor.innerText = library.books[i].author
         bookAuthor.className = `bookAuthor${i}`
-        bookAuthor.id = `bookAuthor${i}`
 
         const bookPages= document.querySelector('.bookPages')
         bookPages.innerText = library.books[i].pages
         bookPages.className = `bookPages${i}`
-        bookPages.id = `bookPages${i}`
 
         const bookRead = document.querySelector('.bookRead')
         bookRead.innerText = library.books[i].read
         bookRead.className = `bookRead${i}`
-        bookRead.id = `bookRead${i}`
 
+        // take Title length, then set size on spine accordingly
         if (library.books[i].title.length < 10)  {
             bookTitle.style.fontSize = '18px'
         } else if (library.books[i].title.length < 15)  {
@@ -117,41 +104,32 @@ function buildBook() {
             bookTitle.style.fontSize = '12px'
         }
 
-        // define constants for eventListener
+        // define constants for eventListener to push text to
         const detailsTitle = document.getElementById('detailsTitle')
         const detailsAuthor = document.getElementById('detailsAuthor')
         const detailsPages = document.getElementById('detailsPages')
         const detailsRead = document.getElementById('detailsRead')
         
         // add eventListener to each book to push the books info into the Details pop-up
-        const allBooksHTML = document.getElementById(`bookTitle${i}`)
+        const allBooksHTML = document.querySelector(`.book${i}`)
 
         allBooksHTML.addEventListener('click', () => {
 
-            deleteThisBook = document.getElementById(`bookTitle${i}`).innerText
-            // deleteThisTitle = document.getElementById(`bookTitle${i}`).innerText
-            // deleteThisAuthor = document.getElementById(`bookTitle${i}`).innerText
-            // deleteThisPages = document.getElementById(`bookTitle${i}`).innerText
-            // deleteThisRead = document.getElementById(`bookTitle${i}`).innerText
+            index = library.books.findIndex(books => books.title === document.querySelector(`.bookTitle${i}`).innerText)
 
-            const index = library.books.findIndex(books => books.title === document.getElementById(`bookTitle${i}`).innerText)
-            console.log(document.getElementById(`bookTitle${i}`).innerText)
-            console.log(index)
+            parseClassNameToNum = document.querySelector(`.book${i}`).className.replace(/^\D+/g, '')
 
-            // const index = library.books.findIndex(books => {
-            //     console.log(deleteThisBook == document.getElementById(`bookTitle${i}`).innerText)
-            // })
+            console.log(document.querySelector(`.book${i}`))
 
-            detailsTitle.innerText = 'Title: ' + document.getElementById(`bookTitle${i}`).innerText
-            detailsAuthor.innerText = 'Author: ' + document.getElementById(`bookAuthor${i}`).innerText
-            detailsPages.innerText = 'Pages: '  + document.getElementById(`bookPages${i}`).innerText
-            if (document.getElementById(`bookRead${i}`).innerText === true) {
+            detailsTitle.innerText = 'Title: ' + document.querySelector(`.bookTitle${i}`).innerText
+            detailsAuthor.innerText = 'Author: ' + document.querySelector(`.bookAuthor${i}`).innerText
+            detailsPages.innerText = 'Pages: '  + document.querySelector(`.bookPages${i}`).innerText
+            if (document.querySelector(`.bookRead${i}`).innerText === true) {
                 detailsRead.innerText = 'Nice, you\'ve read this book!'
             } else {
                 detailsRead.innerText = 'Add this book to your reading list!'
             }
         })
-        // console.log(bookAll)
     }
 }
 
@@ -164,20 +142,21 @@ function openAddBook() {
     }
 }
 
-// REMOVE BOOK  
+// resets all className and innerText where applicable for main Book, Title, Author, Pages, and Read status
 function removeBook() {
+    document.querySelector(`.book${parseClassNameToNum}`).className = 'book'
+    document.querySelector(`.bookTitle${parseClassNameToNum}`).innerText = ''
+    document.querySelector(`.bookTitle${parseClassNameToNum}`).className = 'bookTitle'
+    document.querySelector(`.bookAuthor${parseClassNameToNum}`).innerText = ''
+    document.querySelector(`.bookAuthor${parseClassNameToNum}`).className = 'bookAuthor'
+    document.querySelector(`.bookPages${parseClassNameToNum}`).innerText = ''
+    document.querySelector(`.bookPages${parseClassNameToNum}`).className = 'bookPages'
+    document.querySelector(`.bookRead${parseClassNameToNum}`).innerText = ''
+    document.querySelector(`.bookRead${parseClassNameToNum}`).className = 'bookRead'
     
-    document.querySelector(`.book${bookIndex}`).className = `book inactive`
-    document.querySelector(`.bookTitle${bookIndex}`).className = `bookTitle`
-
-    library.books.splice(bookIndex, 1)
+    library.books.splice(index, 1)
 
     counter = library.books.length
-    
-    // console.table(library.books)
-    console.log(counter, bookIndex)
-
-    // buildBook()
     closeMe()
 }
 
@@ -196,13 +175,29 @@ const fillUpLibrary = () => {
     counter === 30
 }
 
+// loops through all books, grab by className, then reset all innerText and classNames to default
 const emptyLibrary = () => {
-    for (let i = 0; i < counter; i++) {
+    for (let i = 0; i <= 30; i++) {
         const emptyBooks = document.querySelector(`.book${i}`)
         const emptyBooksTitle = document.querySelector(`.bookTitle${i}`)
-        emptyBooks.className = `book inactive`
-        emptyBooksTitle.className = `bookTitle`
+        const emptyBooksAuthor = document.querySelector(`.bookAuthor${i}`)
+        const emptyBooksPages = document.querySelector(`.bookPages${i}`)
+        const emptyBooksRead = document.querySelector(`.bookRead${i}`)
+
+        if (document.querySelector(`.book${i}`) === null) { continue }
+        if (document.querySelector(`.bookTitle${i}`) === null) { continue }
+        if (document.querySelector(`.bookAuthor${i}`) === null) { continue }
+        if (document.querySelector(`.bookPages${i}`) === null) { continue }
+        if (document.querySelector(`.bookRead${i}`) === null) { continue }
+
+        emptyBooks.className = 'book'
+        emptyBooksTitle.className = 'bookTitle'
+        emptyBooksAuthor.className = 'bookAuthor'
+        emptyBooksPages.className = 'bookPages'
+        emptyBooksRead.className = 'bookRead'
     }    
+
+    // after resetting, empty the library array and reset counter
     library.books = []
     closeMe()
     clearForm()
@@ -220,15 +215,12 @@ function closeMe() {
     document.getElementById('addBookForm').style.display = 'none'
 }
 
-
 function clearForm() {
     document.getElementById('title').value = ''
     document.getElementById('author').value = ''
     document.getElementById('pages').value = ''
     document.getElementById('read').checked = false
 }
-
-
 
 
 let defaultBooks = [
