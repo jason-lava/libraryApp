@@ -77,37 +77,35 @@ let counter = 0
 let deleteThisBook = ''
 
 // take the Book from Library, "put on shelf" with random size and color for fun
-function buildBook() {
-    // loop through all books add XXX, sizing, and colors, then add the book details to the form
-    for (let i = counter; counter < library.books.length; counter++) {
-        const bookHTML = document.querySelector('.book')
-        
-        bookHTML.className = `book${i}`
 
-        bookHTML.style.setProperty('--book-height', randomSize(150, 175) + 'px')
-        bookHTML.style.setProperty('--book-width', randomSize(30, 35) + 'px')
-        bookHTML.style.setProperty('background-color', randomColor(randomSize(1, 11)))
+function buildBook() {
+    for (let i = counter; counter < library.books.length; counter++) {
+        const bookAll = document.querySelector('.book')
+        bookAll.className = `book${i}`
+
+        bookAll.style.setProperty('--book-height', randomSize(150, 175) + 'px')
+        bookAll.style.setProperty('--book-width', randomSize(30, 35) + 'px')
+        bookAll.style.setProperty('background-color', randomColor(randomSize(1, 11)))
 
         const bookTitle = document.querySelector('.bookTitle')
         bookTitle.innerText = library.books[i].title
         bookTitle.className = `bookTitle${i}`
         bookTitle.id = `bookTitle${i}`
 
-        const authorDiv = document.createElement('div')
-        const pagesDiv = document.createElement('div')
-        const readDiv = document.createElement('div')
+        const bookAuthor = document.querySelector('.bookAuthor')
+        bookAuthor.innerText = library.books[i].author
+        bookAuthor.className = `bookAuthor${i}`
+        bookAuthor.id = `bookAuthor${i}`
 
-        authorDiv.innerText = library.books[i].author
-        pagesDiv.innerText = library.books[i].pages
-        readDiv.innerText = library.books[i].read
+        const bookPages= document.querySelector('.bookPages')
+        bookPages.innerText = library.books[i].pages
+        bookPages.className = `bookPages${i}`
+        bookPages.id = `bookPages${i}`
 
-        authorDiv.id = `bookAuthor${i}`
-        pagesDiv.id = `bookPages${i}`
-        readDiv.id = `bookRead${i}`
-
-        bookTitle.appendChild(authorDiv)
-        bookTitle.appendChild(pagesDiv)
-        bookTitle.appendChild(readDiv)
+        const bookRead = document.querySelector('.bookRead')
+        bookRead.innerText = library.books[i].read
+        bookRead.className = `bookRead${i}`
+        bookRead.id = `bookRead${i}`
 
         if (library.books[i].title.length < 10)  {
             bookTitle.style.fontSize = '18px'
@@ -130,11 +128,21 @@ function buildBook() {
 
         allBooksHTML.addEventListener('click', () => {
 
-            console.log(document.getElementById(`bookTitle${i}`).innerText, 'is id #', document.getElementById(`bookTitle${i}`).id, document.getElementById(`bookTitle${i}`).className, document.getElementById(`bookTitle${i}`))
-
             deleteThisBook = document.getElementById(`bookTitle${i}`).innerText
+            // deleteThisTitle = document.getElementById(`bookTitle${i}`).innerText
+            // deleteThisAuthor = document.getElementById(`bookTitle${i}`).innerText
+            // deleteThisPages = document.getElementById(`bookTitle${i}`).innerText
+            // deleteThisRead = document.getElementById(`bookTitle${i}`).innerText
 
-            detailsTitle.innerText = 'Title: ' + library.books[i].title
+            const index = library.books.findIndex(books => books.title === document.getElementById(`bookTitle${i}`).innerText)
+            console.log(document.getElementById(`bookTitle${i}`).innerText)
+            console.log(index)
+
+            // const index = library.books.findIndex(books => {
+            //     console.log(deleteThisBook == document.getElementById(`bookTitle${i}`).innerText)
+            // })
+
+            detailsTitle.innerText = 'Title: ' + document.getElementById(`bookTitle${i}`).innerText
             detailsAuthor.innerText = 'Author: ' + document.getElementById(`bookAuthor${i}`).innerText
             detailsPages.innerText = 'Pages: '  + document.getElementById(`bookPages${i}`).innerText
             if (document.getElementById(`bookRead${i}`).innerText === true) {
@@ -143,6 +151,7 @@ function buildBook() {
                 detailsRead.innerText = 'Add this book to your reading list!'
             }
         })
+        // console.log(bookAll)
     }
 }
 
@@ -157,16 +166,6 @@ function openAddBook() {
 
 // REMOVE BOOK  
 function removeBook() {
-    let bookIndex = 0
-
-    for (let i = 0; i < 30; i++) {
-        const index = library.books.findIndex(books => {
-            return deleteThisBook === document.getElementById(`bookTitle${i}`).innerText
-        })
-        if (index === 0) {
-            bookIndex = i
-        } 
-    }
     
     document.querySelector(`.book${bookIndex}`).className = `book inactive`
     document.querySelector(`.bookTitle${bookIndex}`).className = `bookTitle`
@@ -235,19 +234,16 @@ function clearForm() {
 let defaultBooks = [
     {title: 'Atlas Shrugged', author: 'Ayn Rand', pages: 1069, read: false}, 
     {title: 'Why Nations Fail', author: 'Daron Acemoglu', pages: 482, read: false}, 
-    {title: 'The Epic of Gilgamesh', author: 'Unknown', pages: 27, read: false}, 
-    {title: 'Crime and Punishment', author: 'Fyodor Dostoevsky', pages: 430, read: false}, 
     {title: 'Antifragile', author: 'Nassim Nicholas Taleb', pages: 423, read: false}, 
-    {title: 'Thinking: Fast and Slow', author: 'Daniel Kahneman', pages: 418, read: false}, 
     {title: 'Never Eat Alone', author: 'Keith Ferrazzi', pages: 367, read: false}, 
     {title: 'Mastery', author: 'Robert Greene', pages: 311, read: false}, 
     {title: 'The Black Swan', author: 'Nassim Nicholas Taleb', pages: 310, read: false}, 
     {title: 'Fanatical Prospecting', author: 'Jeb Blount', pages: 304, read: false}, 
+    {title: 'The Innovators DNA', author: 'Jeff Dyer', pages: 268, read: false}, 
     {title: 'The Product Book', author: 'Product School', pages: 300, read: false}, 
     {title: 'The Lean Startup', author: 'Eric Ries', pages: 290, read: false}, 
     {title: 'Ham On Rye', author: 'Charles Bukowski', pages: 283, read: false}, 
     {title: 'The Innovators Dilemma', author: 'Clayton Christensen', pages: 270, read: false}, 
-    {title: 'The Innovators DNA', author: 'Jeff Dyer', pages: 268, read: false}, 
     {title: 'First, Break All The Rules', author: 'Jim Harter', pages: 267, read: false}, 
     {title: 'Good To Great', author: 'Jim Collins', pages: 260, read: false}, 
     {title: 'The Millionaire Next Door', author: 'Thomas J. Stanley', pages: 250, read: false}, 
@@ -262,5 +258,8 @@ let defaultBooks = [
     {title: 'The Great Degeneration', author: 'Nial Ferguson', pages: 153, read: false}, 
     {title: 'The Prince', author: 'Nicoli Machiavelli', pages: 124, read: false}, 
     {title: 'Los Cuatro Acuerdos', author: 'Dr. Miguel Ruiz', pages: 118, read: false}, 
-    {title: 'Meditations', author: 'Marcus Aurelius', pages: 99, read: false}   
+    {title: 'Meditations', author: 'Marcus Aurelius', pages: 99, read: false},
+    {title: 'Boyd', author: 'Robert Coram', pages: 449, read: false},
+    {title: 'A Wrinkle In Time', author: 'Madeleine L\'Engle', pages: 416, read: false}, 
+    {title: '1984', author: 'George Orwell', pages: 328, read: false}
 ]
