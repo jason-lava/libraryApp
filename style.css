@@ -128,7 +128,9 @@ body {
     align-items: center;
 }
 
-.shelf {
+.shelfTop,
+.shelfMiddle,
+.shelfBottom {
     height: var(--shelf-height);
     width: var(--shelf-width);
     display: flex;
@@ -136,17 +138,9 @@ body {
     align-items: flex-end;
 }
 
-.shelf.top,
-.shelf.middle {
+.shelfTop,
+.shelfMiddle {
     border-bottom: 3px solid black;
-}
-
-/* 
-[class^="book"]
-*/
-
-.inactive {
-    display: none;
 }
 
 [class^="book"] {
@@ -156,6 +150,12 @@ body {
     border-radius: 4px;
     background-color: ;
     cursor: pointer;
+}
+
+.book, .bookTitle, 
+.bookAuthor, .bookPages, 
+.bookRead {
+    display: none;
 }
 
 button {
