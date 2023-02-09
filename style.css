@@ -152,11 +152,15 @@ body {
     cursor: pointer;
 }
 
-.book, .bookTitle, 
-.bookAuthor, .bookPages, 
-.bookRead {
+.book, .bookTitle {
     display: none;
 }
+
+[class^="bookAuthor"],
+[class^="bookPages"],
+[class^="bookRead"] {
+    display: none;
+} 
 
 button {
     display: flex;
@@ -178,11 +182,7 @@ button {
     text-overflow: ellipsis;
 }
 
-[id^="bookAuthor"],
-[id^="bookPages"],
-[id^="bookRead"] {
-    display: none;
-} 
+
 
 .detailsContainer {
     height: 360px;
