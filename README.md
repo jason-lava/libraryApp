@@ -1,4 +1,4 @@
-# [PROJECT NAME]
+# libraryApp
 
 https://jason-lava.github.io/libraryApp/
 
