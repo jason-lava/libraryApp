@@ -4,7 +4,7 @@ https://jason-lava.github.io/libraryApp/
 
 Here is my libraryApp - add your favorite books and details to fill it up!
 
-[![library app](https://github.com/jason-lava/libraryApp/blob/main/libraryAppScreenshot.png?raw=true)]
+![library app](https://github.com/jason-lava/libraryApp/blob/main/libraryAppScreenshot.png?raw=true)
 
 # How It's Made:
 Tech used:
