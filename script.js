@@ -119,12 +119,10 @@ function buildBook() {
 
             parseClassNameToNum = document.querySelector(`.book${i}`).className.replace(/^\D+/g, '')
 
-            console.log(document.querySelector(`.book${i}`))
-
             detailsTitle.innerText = 'Title: ' + document.querySelector(`.bookTitle${i}`).innerText
             detailsAuthor.innerText = 'Author: ' + document.querySelector(`.bookAuthor${i}`).innerText
             detailsPages.innerText = 'Pages: '  + document.querySelector(`.bookPages${i}`).innerText
-            if (document.querySelector(`.bookRead${i}`).innerText === true) {
+            if (library.books[i].read === true) {
                 detailsRead.innerText = 'Nice, you\'ve read this book!'
             } else {
                 detailsRead.innerText = 'Add this book to your reading list!'
